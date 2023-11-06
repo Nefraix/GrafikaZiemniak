@@ -435,32 +435,32 @@ void walec(double xStart, double yStart, double zStart, double r, double h)
 	double x, y, alpha, PI = 3.14;
 	glBegin(GL_TRIANGLE_FAN);
 	glColor3d(0.8, 0.0, 0);
-	glVertex3d(0, 0, 0);
+	glVertex3d(xStart, yStart, zStart);
 	for (alpha = 0; alpha <= 2 * PI; alpha += PI / 8.0)
 	{
-		x = r*sin(alpha)+xStart;
-		y = r*cos(alpha)+yStart;
-		glVertex3d(x, y, 0);
+		x = r*sin(alpha);
+		y = r*cos(alpha);
+		glVertex3d(x+xStart, y+yStart, zStart);
 	}
 	glEnd();
 
 	glBegin(GL_QUAD_STRIP);
 	for (alpha = 0.0; alpha <= 2 * PI; alpha += PI / 8.0)
 	{
-		x = r*sin(alpha)+xStart;
-		y = r* cos(alpha)+yStart;
-		glVertex3d(x, y, zStart);
-		glVertex3d(x, y, h+zStart);
+		x = r*sin(alpha);
+		y = r* cos(alpha);
+		glVertex3d(x+xStart, y+yStart, zStart);
+		glVertex3d(x+xStart, y+yStart, h+zStart);
 	}
 	glEnd();
 
 	glBegin(GL_TRIANGLE_FAN);
-	glVertex3d(0, 0, h);
+	glVertex3d(xStart, yStart, h+zStart);
 	for (alpha = 0; alpha >= -2 * PI; alpha -= PI / 8.0)
 	{
 		x = r*sin(alpha);
 		y = r*cos(alpha);
-		glVertex3d(x, y, h);
+		glVertex3d(x + xStart, y + yStart, h+zStart);
 	}
 	glEnd();
 }
@@ -551,7 +551,7 @@ void RenderScene(void)
 	
 	//Sposób na odróŸnienie "przedniej" i "tylniej" œciany wielok¹ta:
 	glPolygonMode(GL_BACK,GL_LINE);
-	walec(40, 40);
+	walec(50, -20, 40, 40, 40);
 	//szescian();
 	//Uzyskanie siatki:
 	//glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
